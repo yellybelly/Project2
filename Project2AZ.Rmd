@@ -1,0 +1,68 @@
+```{r}
+library(tidyverse)
+library(magrittr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset
+
+```{r}
+stroke2 = read.csv("BrainStroke2.csv")
+stroke2
+```
+Now, I want to narrow down the columns to only the ones I am interested in`
+
+```{r}
+Bstroke <- stroke2 %>%
+  select(Gender, age, hypertension, heart_disease, bmi, smoking_status)
+Bstroke
+```
+Now, to analyze who is most/least prone to having a stroke
+```{r}
+brainstrokeA <- Bstroke %>%
+                    filter(Bstroke$smoking_status == "smokes")
+brainstrokeA
+```
+
+```{r}
+brainstrokeAA <- Bstroke %>%
+                    filter(Bstroke$smoking_status == "formerly smoked")
+brainstrokeAA
+```
+
+```{r}
+brainstrokeB <- Bstroke %>%
+                    filter(Bstroke$smoking_status == "never smoked")
+brainstrokeB
+```
+```{r}
+bs <- Bstroke %>%
+          filter(Bstroke$heart_disease == 1)
+bs
+```
+```{r}
+bss <- Bstroke %>%
+          filter(Bstroke$hypertension == 1)
+bss
+```
+Surprisingly, it seems that the majority of stroke patients actually don't smoke/never smoked. Even more so, the stroke patients who have a heart disease or hypertension are the minority, which is also surprising. 
+
+
+```{r}
+mean(Bstroke$age, na.rm = TRUE)
+median(Bstroke$age, na.rm = TRUE)
+which.min(Bstroke$age)
+which.max(Bstroke$age)
+```
+The ages range from 49 to 82 with the median age being 71 and the average age being about 69. 
+
+```{r}
+mean(Bstroke$bmi, na.rm = TRUE)
+median(Bstroke$bmi, na.rm = TRUE)
+which.min(Bstroke$bmi)
+which.max(Bstroke$bmi)
+```
+The bmi's range from 22.4 to 48.9 with the median bmi being 29 and the avergae bmi being about 30-31
+
+Overall, it is surprising looking at the data of stroke patients and anaylzing who is most/least prone to having a stroke. Non smokers are the majority, and those with hypertension and heart disease are the minority. Also, the ages, along with the bmi's have a wide range. 

@@ -1,0 +1,44 @@
+
+```{r}
+library(tidyverse)
+library(magrittr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+main = read.csv("top.csv")
+main
+```
+
+```{r}
+summary(main$`RATING`)
+```
+
+```{r}
+main$VOTES<- as.factor(main$VOTES)
+summary(main$`VOTES`)
+```
+Now, we want to see what rating the majority of the TV shows are. 
+
+```{r}
+an <- main %>%
+                    filter(main$RATING == 9.5)
+an
+```
+
+```{r}
+and <- main %>%
+                    filter(main$RATING == 9.4)
+and
+```
+Here, it is shown that the majority of the TV shows are rated between 9.4 and 9.5.
+
+
+```{r}
+ggplot(main, aes(x= `RATING`)) + geom_histogram(binwidth = .05)
+```
+
+```{r}
+ggplot(data = main, aes(x = `RATING`, y =`VOTES`)) + geom_point()
+```
+
+Surprisingly, there doesn't seem to be much of a relationship between the rating and the votes on the TV shows. A great example is that there is a show with the most votes, which does not have the highest rating. 

@@ -1,0 +1,26 @@
+```{r}
+library(tidyverse)
+library(tidyr)
+library(dplyr, warn.conflicts = FALSE)
+CT = read_csv("CyberThreats .csv")
+CT
+```
+After loading the data into R, I want to make the data frame in a longer format and create new column names: "Cyber_Crime" and "Frequency"
+
+```{r}
+CyberL <- gather(CT, Cyber_Crime, Frequency, Adware:Trojan, factor_key=TRUE)
+
+CyberL
+```
+Now, I want to analyze by comparing the frequency of the cyber crime each year. 
+
+```{r}
+CyberL %>% 
+  group_by(Year)  %>%
+  dplyr::summarize(avg_freq = mean(Frequency))
+```
+This shows the average frequency of cyber crime per year. We can see that crime was highest in 2016, with 2020, 2022, and 2019 behind it. I am curious as to why crime was so high in 2016 and what factors contributed to that. That will be an important factor in making predictions for the future. I also find it interesting that the frequency for Ransomware is much higher than the other cyber crimes throughout all of the years. 
+
+
+
+
